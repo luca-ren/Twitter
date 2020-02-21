@@ -10,7 +10,7 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
         fields = ('id', 'url', 'message', 'comment_owner', 'tweet', 'comments_liked_by')
-
+        read_only_fields = ['comments_liked_by']
 
 class TweetSerializer(serializers.HyperlinkedModelSerializer):
     tweet_owner = serializers.ReadOnlyField(source='tweet_owner.username')
@@ -18,6 +18,7 @@ class TweetSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Tweet
         fields = ('id', 'url', 'title', 'message', 'tweet_owner', 'comments', 'tweets_liked_by')
+        read_only_fields = ['comments', 'tweets_liked_by']
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -25,7 +26,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'url', 'username', 'tweet_owner', 'comment_owner', 'comment_like_owner', 'tweet_like_owner')
-
 
 class CommentLikeSerializer(serializers.HyperlinkedModelSerializer):
 

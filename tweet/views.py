@@ -32,7 +32,7 @@ class CommentView(viewsets.ModelViewSet):
 
 
 class UserView(viewsets.ModelViewSet):
-
+    permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
