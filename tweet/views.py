@@ -4,8 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 
-from .models import Tweet, Comment
-from .serializers import TweetSerializer, UserSerializer, CommentSerializer
+from .models import Tweet, Comment, TweetLike, CommentLike
+from .serializers import TweetSerializer, UserSerializer, CommentSerializer, TweetLikeSerializer, CommentLikeSerializer
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -20,6 +20,7 @@ class TweetView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(tweet_owner=self.request.user)
 
+
 class CommentView(viewsets.ModelViewSet):
 
     queryset = Comment.objects.all()
@@ -29,10 +30,28 @@ class CommentView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(comment_owner=self.request.user)
 
+
 class UserView(viewsets.ModelViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
+
+
+class TweetLikeView(viewsets.ModelViewSet):
+
+    queryset = TweetLike.objects.all()
+    serializer_class = TweetLikeSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+
+class CommentLikeView(viewsets.ModelViewSet):
+
+    queryset = CommentLike.objects.all()
+    serializer_class = CommentLikeSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+
+
 
 

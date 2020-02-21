@@ -23,6 +23,8 @@ router = routers.DefaultRouter()
 router.register('tweets', views.TweetView)
 router.register('users', views.UserView)
 router.register('comments', views.CommentView)
+router.register('comments_likes', views.CommentLikeView)
+router.register('tweets_likes', views.TweetLikeView)
 
 urlpatterns = [
     path('', include(router.urls))

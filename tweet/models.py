@@ -20,3 +20,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class CommentLike(models.Model):
+    comment_like_owner = models.ForeignKey('auth.User', related_name='comment_like_owner', on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, related_name="comments_liked_by", on_delete=models.CASCADE)
+
+
+class TweetLike(models.Model):
+    tweet_like_owner = models.ForeignKey('auth.User', related_name='tweet_like_owner', on_delete=models.CASCADE)
+    tweet = models.ForeignKey(Tweet, related_name="tweets_liked_by", on_delete=models.CASCADE)
