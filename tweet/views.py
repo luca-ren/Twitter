@@ -31,8 +31,8 @@ class CommentView(viewsets.ModelViewSet):
         serializer.save(comment_owner=self.request.user)
 
 
-class UserView(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+class UserView(viewsets.ReadOnlyModelViewSet):
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
